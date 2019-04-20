@@ -5,6 +5,8 @@
  */
 package game;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author INSECT
@@ -12,20 +14,21 @@ package game;
 
 public class Message implements java.io.Serializable {
     //mesaj tipleri enum 
-    public static enum Message_Type {Disconnected,None, Name, Draw,RivalConnected, ChangeColor, Selected, Bitis,Start,playAgain}
+    public static enum Message_Type {Disconnected,None, Name, Draw,RivalConnected, clientsNames, Selected, Bitis,Start,playAgain}
     //mesajın tipi
     public Message_Type type;
-    //mesajın içeriği obje tipinde ki istenilen tip içerik yüklenebilsin
-    public Object content;
     public String reciverName;
+    public ArrayList<Object> content ;
     
     public Message(Message_Type t)
     {
         this.type=t;
         reciverName="";
+        content = new ArrayList<>();
     }
  
 
     
     
 }
+  

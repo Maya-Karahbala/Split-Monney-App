@@ -38,9 +38,10 @@ class ServerThread extends Thread {
                 
                 Server.IdClient++;
                 //clienti listeye ekle.
-                Server.Clients.add(nclient);
+               // Server.Clients.add(nclient);
                 //client mesaj dinlemesini başlat
                 nclient.listenThread.start();
+                Server.Display(nclient.name);
 
             } catch (IOException ex) {
                 Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);

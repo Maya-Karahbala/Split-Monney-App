@@ -72,20 +72,46 @@ public class SClient {
                     System.out.println("msg geldi");
                     //mesaj gelirse bu satıra geçer
                     //mesaj tipine göre işlemlere ayır
-                    
-                        if (received.type == Name) {
-                            TheClient.name = received.content.toString();
-                            Server.Display(TheClient.name + " id = " + TheClient.id);
-                        } else {
-                             System.out.println("msg geldiiiiiiiiiii else");
-                            
-                            for (SClient clnt : Server.Clients) {
-                                System.out.println("clnt.name "+clnt.name);
-                                if (clnt.name.equals(received.reciverName) ){
-                                    reciver = clnt;
-                                }
+
+                    if (received.type == Name) {
+                        TheClient.name = received.content.get(0).toString();
+                        //clienti listeye ekle.
+
+                        System.out.println("--------------");
+                        boolean containsSameName = false;
+                        for (SClient Client : Server.Clients) {
+                            if (Client.name.equals(TheClient.name)) {
+                                containsSameName = true;
                             }
-                            if (reciver != null) {
+                           
+                        }
+                        if (!containsSameName) {
+                            Server.Clients.add(TheClient);
+                        }
+                           for (SClient Client : Server.Clients) {
+                            
+                            Server.Display(Client.name + " id = " + Client.id);
+                        }
+                           //send clents names to all clents
+                            Message msg = new Message(Message.Message_Type.clientsNames);
+                             for (SClient Client : Server.Clients) {
+                             msg.content.add(Client.name);
+                            
+                              }
+                              for (SClient Client : Server.Clients) {
+                                 Server.Send(Client, msg);
+                            
+                              }
+                            
+
+                    } else {
+                        for (SClient clnt : Server.Clients) {
+                            System.out.println("clnt.name " + clnt.name);
+                            if (clnt.name.equals(received.reciverName)) {
+                                reciver = clnt;
+                            }
+                        }
+                        if (reciver != null) {
                             Server.Send(reciver, received);
 
                         }

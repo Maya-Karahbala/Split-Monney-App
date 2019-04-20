@@ -11,10 +11,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-
 
 /**
  *
@@ -35,27 +34,43 @@ class Listen extends Thread {
                 switch (received.type) {
                     //draw
                     case Draw:
-                       
+
                     case Disconnected:
-                      
+
                         break;
                     case Bitis:
-                       
+
                         break;
-                    case RivalConnected:
-                    
+                    case clientsNames:
+                        thisApp.addingEvent = true;
+                        thisApp.cmbClients.removeAllItems();
+                        thisApp.cmbAddtoGroup.removeAllItems();
+
+                        for (Object object : received.content) {
+                            // add other elemnt names except cleint itself
+                            if (!thisApp.txtName.getText().equals((String) object)) {
+                                if (!Client.otherCleints.contains(object)) {
+                                    Client.otherCleints.add((String) object);
+                                }
+                                thisApp.cmbClients.addItem((String) object);
+                                thisApp.cmbAddtoGroup.addItem((String) object);
+                            }
+                        }
+                      
+                        
+                        thisApp.listModel.removeAllElements();
+                        thisApp.cmbAddtoGroup.setSelectedIndex(-1);
+                        thisApp.addingEvent = false;
                         break;
-                    case ChangeColor://change only rival colors
-                     
-                        break;
+
                     case Selected:
-                        System.out.println("msg geldiiiiiiiiiii");
-                        thisApp.jTextArea1.setText((String) received.content);
+                  
+                        // thisApp.jTextArea1.setText((String) received.content.get(0));
                         System.out.println(received.content);
-                       
+
                         break;
                     case playAgain:
-                    
+
                         break;
 
                 }
@@ -71,7 +86,6 @@ class Listen extends Thread {
 
 public class Client {
 
-
     //her clientın bir soketi olmalı
     public static Socket socket;
 
@@ -81,11 +95,19 @@ public class Client {
     public static ObjectOutputStream sOutput;
     //serverı dinleme thredi 
     public static Listen listenMe;
+    public static ArrayList<Group> groubs;
+    public static ArrayList<String> otherCleints;
+    public static ArrayList<Bill> sendedBills;
+    public static ArrayList<Bill> recivedBills;
 
     public static void Start(String ip, int port) {
         try {
 
             // Client Soket nesnesi
+            groubs = new ArrayList<Group>();
+            sendedBills = new ArrayList<Bill>();
+            recivedBills = new ArrayList<Bill>();
+            otherCleints = new ArrayList<String>();
             Client.socket = new Socket(ip, port);
             Client.Display("Servera bağlandı");
             // input stream
@@ -96,7 +118,7 @@ public class Client {
             Client.listenMe.start();
 
             //ilk mesaj olarak isim gönderiyorum
-           /* Message msg = new Message(Message.Message_Type.Name);
+            /* Message msg = new Message(Message.Message_Type.Name);
             msg.content = "deneme";
             Client.Send(msg);*/
         } catch (IOException ex) {
