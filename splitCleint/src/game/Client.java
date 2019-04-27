@@ -24,11 +24,42 @@ class Listen extends Thread {
 
     public void run() {
         //soket bağlı olduğu sürece dön
+         Object msg;
         Message received;
+        Bill recivedBill;
+        Group recivedGroup;
         while (Client.socket.isConnected()) {
             try {
                 //mesaj gelmesini bloking olarak dinyelen komut
-                received = (Message) (sInput.readObject());
+                msg=(sInput.readObject());
+                if(msg instanceof Bill){
+                        
+                   recivedBill=(Bill)msg;
+                   Client.recivedBills.add(recivedBill);
+                   thisApp.tblRecivedBillsModel.addRow(new Object[]{recivedBill.sender, recivedBill.amount,recivedBill.description ,recivedBill.reciver.name,recivedBill.reciver.members.size()
+                   ,recivedBill.ammountToPaid});
+                    
+                }
+                else if(msg instanceof Group){
+                        
+                   recivedGroup=(Group)msg;
+                   
+                   //delete client it self from members and add msg sender to members
+                   recivedGroup.members.remove(thisApp.txtName.getText());
+                   
+                    Client.groubs.add(recivedGroup);
+                   thisApp.cmbGroups.addItem(recivedGroup.name);
+                    // add to my groubsCombobox
+                    thisApp.cmbMygroubs.addItem(recivedGroup.name);
+                    thisApp.cmbMyBillsgroubs.addItem(recivedGroup.name);
+                    thisApp.cmbRecivedBillsgroubs.addItem(recivedGroup.name);
+                  // }
+                   
+                   
+                    
+                }
+                else{
+                received = (Message) msg;
                 //mesaj gelirse bu satıra geçer
                 //mesaj tipine göre yapılacak işlemi ayır.
                 switch (received.type) {
@@ -69,10 +100,11 @@ class Listen extends Thread {
                         System.out.println(received.content);
 
                         break;
-                    case playAgain:
+                    case AddGroup:
 
                         break;
 
+                }
                 }
             } catch (IOException ex) {
                 Logger.getLogger(Listen.class.getName()).log(Level.SEVERE, null, ex);
@@ -153,7 +185,7 @@ public class Client {
     }
 
     //mesaj gönderme fonksiyonu
-    public static void Send(Message msg) {
+    public static void Send(Object msg) {
         try {
             Client.sOutput.writeObject(msg);
         } catch (IOException ex) {
@@ -161,5 +193,6 @@ public class Client {
         }
 
     }
+   
 
 }

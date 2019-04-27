@@ -5,6 +5,8 @@
  */
 package splitServer;
 
+import game.Bill;
+import game.Group;
 import game.Message;
 import java.io.IOException;
 
@@ -88,7 +90,7 @@ public class Server {
 
     // serverdan clietlara mesaj gönderme
     //clieti alıyor ve mesaj olluyor
-    public static void Send(SClient cl, Message msg) {
+    public static void Send(SClient cl, Object msg) {
 
         try {
             cl.sOutput.writeObject(msg);
@@ -97,5 +99,5 @@ public class Server {
         }
 
     }
-
+     
 }

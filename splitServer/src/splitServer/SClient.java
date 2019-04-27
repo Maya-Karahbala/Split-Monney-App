@@ -5,6 +5,8 @@
  */
 package splitServer;
 
+import game.Bill;
+import game.Group;
 import game.Message;
 import static game.Message.Message_Type.Name;
 import java.io.IOException;
@@ -51,7 +53,10 @@ public class SClient {
     class Listen extends Thread {
 
         SClient TheClient;
+        Object msg;
         Message received;
+        Bill receivedBill;
+        Group receivedGroup;
         SClient reciver = null;
 
         //thread nesne alması için yapıcı metod
@@ -65,7 +70,42 @@ public class SClient {
 
                 try {
                     //mesajı bekleyen kod satırı
-                    received = (Message) (TheClient.sInput.readObject());
+                    msg=(TheClient.sInput.readObject());
+                    if(msg instanceof Bill){
+                        
+                        receivedBill=(Bill)msg;
+                        receivedBill.ammountToPaid= receivedBill.amount/(receivedBill.reciver.members.size()+1);
+                        // sendin bill to group members
+                         for (SClient Client : Server.Clients) {
+                              for (String member : receivedBill.reciver.members) {
+                                  // if clent name in bill groubs number send bill
+                                 if(Client.name.equals(member)){
+                                     
+                                      Server.Send(Client, receivedBill);
+                                 }
+                             }
+                            
+                              }
+                        
+                    }
+                    else if(msg instanceof Group){
+                        receivedGroup=(Group)msg;
+                          for (SClient Client : Server.Clients) {
+                              for (String member : receivedGroup.members) {
+                                  // if client name in bill groups number and not the sender who send bill
+                                 if(Client.name.equals(member)&&
+                                       !Client.name.equals(receivedGroup.members.get(receivedGroup.members.size()-1))){
+                                     
+                                      Server.Send(Client, receivedGroup);
+                                 }
+                             }
+                            
+                              }
+                        
+                    }
+                    else{
+                      
+                    received = (Message) msg;
                     // determining reciver
 
                     //////////////////////////////
@@ -116,6 +156,7 @@ public class SClient {
 
                         }
                         reciver = null;
+                    }
                     }
                 } catch (IOException ex) {
                     Logger.getLogger(SClient.class.getName()).log(Level.SEVERE, null, ex);

@@ -11,8 +11,8 @@ import java.util.ArrayList;
  *
  * @author maya
  */
-public class Group {
-    String name;
+public class Group implements java.io.Serializable {
+    public String name;
     public ArrayList<String> members ;
 
     public Group(String name) {

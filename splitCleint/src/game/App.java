@@ -30,18 +30,26 @@ public class App {
     f.add(cb);        
     f.setLayout(null);    
     f.setSize(400,500);    
-    f.setVisible(true);     
-    ArrayList<String> otherCleints=new ArrayList<>();
-    otherCleints.add("dsd");
-        otherCleints.add("dsd");
-            otherCleints.add("maya");
-            System.out.println(otherCleints);
-        Bill b=new Bill("me", 40.0, "mmmm", new Group("ff"));
-         Message m=new Message(Message.Message_Type.None) ;
-        Object bb=b;
-         Object mm=m;
-        System.out.println(mm instanceof Bill); 
-        System.out.println(mm instanceof Message); 
+    f.setVisible(true);  
+    Group g=new Group("g");
+    
+    ArrayList<Group> groups=new ArrayList<>();
+    g.members.add("dsd");
+        g.members.add("dsvd");
+            g.members.add("maya");
+            System.out.println(g.members);
+            groups.add(g);
+            g.members.add("son");
+             Group g2=g;
+             g2.members.add("qq");
+    
+             System.out.println(groups.get(0).members);
+               groups.add(g2);
+                System.out.println(groups.get(1).members);
+            
+            
+        
+  
         
    }
     public static class control extends Thread {

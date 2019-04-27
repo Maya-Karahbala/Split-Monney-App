@@ -6,30 +6,56 @@ enable false all buttons before start
 package game;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author maya
  */
 public class app extends javax.swing.JFrame {
-     public static app thisApp;
-     //controling comboBox
-     public boolean addingEvent;
+
+    public static app thisApp;
+    //controling comboBox
+    public boolean addingEvent;
     /**
      * Creates new form app
      */
-   
-    public DefaultListModel listModel = new DefaultListModel();  
+
+    public DefaultListModel listModel = new DefaultListModel();
+    public DefaultListModel listMygroupsMemberModel = new DefaultListModel();
+
+    public DefaultTableModel tblBillsModel = new DefaultTableModel();
+    public DefaultTableModel tblRecivedBillsModel = new DefaultTableModel();
+
     public app() {
         initComponents();
         cmbClients.removeAllItems();
         cmbAddtoGroup.removeAllItems();
+        cmbMygroubs.removeAllItems();
+        cmbMyBillsgroubs.removeAllItems();
+        cmbRecivedBillsgroubs.removeAllItems();
+
         cmbGroups.removeAllItems();
         cmbAddtoGroup.setSelectedIndex(-1);
+        cmbMygroubs.setSelectedIndex(-1);
+        cmbMyBillsgroubs.addItem("All");
+        cmbRecivedBillsgroubs.addItem("All");
         listGroupMembers.setModel(listModel);
-        addingEvent=false;
-        thisApp=this;
-        
+        listMygroupsMember.setModel(listMygroupsMemberModel);
+        /// tablo ayarları
+        tblBills.setModel(tblBillsModel);
+        tblBills.setRowHeight(30);
+        tblBillsModel.setColumnIdentifiers(new Object[]{"Paid By", "Total", "Description", "group name", "group members", "unpaid"});
+
+        /// tablo ayarları
+        tblRecivedBills.setModel(tblRecivedBillsModel);
+        tblRecivedBills.setRowHeight(30);
+        tblRecivedBillsModel.setColumnIdentifiers(new Object[]{"Paid By", "Total", "Description", "group name", "group members", "unpaid"});
+
+        addingEvent = false;
+        thisApp = this;
+
     }
 
     /**
@@ -42,7 +68,7 @@ public class app extends javax.swing.JFrame {
     private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
+        panelHome = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         txtmsg = new javax.swing.JTextField();
@@ -50,9 +76,9 @@ public class app extends javax.swing.JFrame {
         txtReciverName = new javax.swing.JTextField();
         btnSend = new javax.swing.JButton();
         cmbClients = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        bills = new javax.swing.JButton();
         txtName = new javax.swing.JTextField();
-        jPanel3 = new javax.swing.JPanel();
+        panelGroup = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtGroupName = new javax.swing.JTextField();
         cmbAddtoGroup = new javax.swing.JComboBox<>();
@@ -60,7 +86,7 @@ public class app extends javax.swing.JFrame {
         btnMakeGroup = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         listGroupMembers = new javax.swing.JList<>();
-        jPanel4 = new javax.swing.JPanel();
+        panelBill = new javax.swing.JPanel();
         cmbGroups = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -68,8 +94,24 @@ public class app extends javax.swing.JFrame {
         txtBillAmount = new javax.swing.JTextField();
         txtBillDescription = new javax.swing.JTextField();
         btnSendBill = new javax.swing.JButton();
+        panelMybills = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblBills = new javax.swing.JTable();
+        cmbMyBillsgroubs = new javax.swing.JComboBox<>();
+        jPanel1 = new javax.swing.JPanel();
+        cmbMygroubs = new javax.swing.JComboBox<>();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        listMygroupsMember = new javax.swing.JList<>();
+        panelMybills1 = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tblRecivedBills = new javax.swing.JTable();
+        cmbRecivedBillsgroubs = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jTabbedPane1.setFont(new java.awt.Font("Noto Sans", 1, 24)); // NOI18N
+
+        panelHome.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -105,7 +147,12 @@ public class app extends javax.swing.JFrame {
 
         cmbClients.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jButton1.setText("jButton1");
+        bills.setText("bills");
+        bills.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                billsActionPerformed(evt);
+            }
+        });
 
         txtName.setText("player1");
         txtName.addActionListener(new java.awt.event.ActionListener() {
@@ -114,66 +161,71 @@ public class app extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelHomeLayout = new javax.swing.GroupLayout(panelHome);
+        panelHome.setLayout(panelHomeLayout);
+        panelHomeLayout.setHorizontalGroup(
+            panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelHomeLayout.createSequentialGroup()
                 .addGap(38, 38, 38)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(cmbClients, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelHomeLayout.createSequentialGroup()
+                        .addGroup(panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtmsg)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelHomeLayout.createSequentialGroup()
+                                .addGroup(panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtReciverName, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 152, Short.MAX_VALUE)))
+                                .addGap(0, 372, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnStart, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnSend, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(25, 25, 25))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(141, 141, 141))
+                        .addGap(25, 25, 25))
+                    .addGroup(panelHomeLayout.createSequentialGroup()
+                        .addComponent(cmbClients, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bills)
+                        .addGap(98, 98, 98))))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        panelHomeLayout.setVerticalGroup(
+            panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelHomeLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnStart)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelHomeLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtReciverName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(panelHomeLayout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addComponent(btnSend)))
                 .addGap(16, 16, 16)
                 .addComponent(txtmsg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addComponent(cmbClients, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
-                .addComponent(jButton1)
-                .addGap(170, 170, 170))
+                .addGroup(panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelHomeLayout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(cmbClients, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelHomeLayout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(bills)))
+                .addGap(22, 22, 22))
         );
 
-        jTabbedPane1.addTab("Home", jPanel1);
+        jTabbedPane1.addTab("Home", panelHome);
 
+        panelGroup.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
         jLabel1.setText("   Group Name : ");
 
-        txtGroupName.setText("jTextField1");
+        txtGroupName.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
 
+        cmbAddtoGroup.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
         cmbAddtoGroup.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbAddtoGroup.setSelectedIndex(-1);
         cmbAddtoGroup.addItemListener(new java.awt.event.ItemListener() {
@@ -187,8 +239,10 @@ public class app extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
         jLabel2.setText("Add Person");
 
+        btnMakeGroup.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
         btnMakeGroup.setText("Save");
         btnMakeGroup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -196,6 +250,7 @@ public class app extends javax.swing.JFrame {
             }
         });
 
+        listGroupMembers.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
         listGroupMembers.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -203,67 +258,78 @@ public class app extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(listGroupMembers);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cmbAddtoGroup, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtGroupName, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE))
-                .addContainerGap(184, Short.MAX_VALUE))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap(479, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(btnMakeGroup, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+        javax.swing.GroupLayout panelGroupLayout = new javax.swing.GroupLayout(panelGroup);
+        panelGroup.setLayout(panelGroupLayout);
+        panelGroupLayout.setHorizontalGroup(
+            panelGroupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelGroupLayout.createSequentialGroup()
+                .addGroup(panelGroupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelGroupLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43)
+                        .addGroup(panelGroupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cmbAddtoGroup, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtGroupName, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelGroupLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addGroup(panelGroupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelGroupLayout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28)
+                                .addComponent(btnMakeGroup, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(251, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnMakeGroup, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(txtGroupName, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cmbAddtoGroup, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(38, 38, 38)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(223, Short.MAX_VALUE))
+        panelGroupLayout.setVerticalGroup(
+            panelGroupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelGroupLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(panelGroupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtGroupName, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23)
+                .addGroup(panelGroupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbAddtoGroup, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38)
+                .addGroup(panelGroupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnMakeGroup, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(121, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Add  group", jPanel3);
+        jTabbedPane1.addTab("Add  group", panelGroup);
 
+        panelBill.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
+
+        cmbGroups.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
         cmbGroups.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbGroups.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbGroupsActionPerformed(evt);
+            }
+        });
 
+        jLabel3.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
         jLabel3.setText("Group Name");
 
+        jLabel4.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
         jLabel4.setText("Description");
 
+        jLabel5.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
         jLabel5.setText("Amount");
 
+        txtBillAmount.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
+
+        txtBillDescription.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
         txtBillDescription.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtBillDescriptionActionPerformed(evt);
             }
         });
 
+        btnSendBill.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
         btnSendBill.setText("Send");
         btnSendBill.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -271,77 +337,238 @@ public class app extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cmbGroups, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtBillAmount)
-                            .addComponent(txtBillDescription, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE))))
-                .addContainerGap(238, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelBillLayout = new javax.swing.GroupLayout(panelBill);
+        panelBill.setLayout(panelBillLayout);
+        panelBillLayout.setHorizontalGroup(
+            panelBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBillLayout.createSequentialGroup()
+                .addGroup(panelBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelBillLayout.createSequentialGroup()
+                        .addGroup(panelBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(70, 70, 70)
+                        .addGroup(panelBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtBillDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbGroups, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelBillLayout.createSequentialGroup()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(103, 103, 103)
+                        .addComponent(txtBillAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(313, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBillLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnSendBill, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(75, 75, 75))
+                .addComponent(btnSendBill, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(69, 69, 69))
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        panelBillLayout.setVerticalGroup(
+            panelBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBillLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cmbGroups, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE))
+                .addGroup(panelBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbGroups))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtBillDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtBillAmount, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(23, 23, 23)
-                .addComponent(btnSendBill, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(389, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addGroup(panelBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBillAmount))
+                .addGap(75, 75, 75)
+                .addComponent(btnSendBill)
+                .addContainerGap(239, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Add bill", jPanel4);
+        jTabbedPane1.addTab("Add bill", panelBill);
+
+        panelMybills.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
+
+        tblBills.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
+        tblBills.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(tblBills);
+
+        cmbMyBillsgroubs.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
+        cmbMyBillsgroubs.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbMyBillsgroubs.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbMyBillsgroubsItemStateChanged(evt);
+            }
+        });
+        cmbMyBillsgroubs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbMyBillsgroubsActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelMybillsLayout = new javax.swing.GroupLayout(panelMybills);
+        panelMybills.setLayout(panelMybillsLayout);
+        panelMybillsLayout.setHorizontalGroup(
+            panelMybillsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 816, Short.MAX_VALUE)
+            .addGroup(panelMybillsLayout.createSequentialGroup()
+                .addComponent(cmbMyBillsgroubs, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        panelMybillsLayout.setVerticalGroup(
+            panelMybillsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMybillsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(cmbMyBillsgroubs, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(55, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("My Bills", panelMybills);
+
+        jPanel1.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
+
+        cmbMygroubs.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
+        cmbMygroubs.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbMygroubs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbMygroubsActionPerformed(evt);
+            }
+        });
+
+        listMygroupsMember.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
+        listMygroupsMember.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane4.setViewportView(listMygroupsMember);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cmbMygroubs, 0, 216, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4))
+                .addContainerGap(588, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(cmbMygroubs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(91, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("My Groups", jPanel1);
+
+        panelMybills1.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
+
+        tblRecivedBills.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
+        tblRecivedBills.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane5.setViewportView(tblRecivedBills);
+
+        cmbRecivedBillsgroubs.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
+        cmbRecivedBillsgroubs.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbRecivedBillsgroubs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbRecivedBillsgroubsActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelMybills1Layout = new javax.swing.GroupLayout(panelMybills1);
+        panelMybills1.setLayout(panelMybills1Layout);
+        panelMybills1Layout.setHorizontalGroup(
+            panelMybills1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 816, Short.MAX_VALUE)
+            .addGroup(panelMybills1Layout.createSequentialGroup()
+                .addComponent(cmbRecivedBillsgroubs, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        panelMybills1Layout.setVerticalGroup(
+            panelMybills1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMybills1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(cmbRecivedBillsgroubs, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(67, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Recived Bills", panelMybills1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 836, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(layout.createSequentialGroup()
                 .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+// groupName used for filtering results
 
+    public void FillMyBillsTable(String groupName) {
+        try {
+            tblBillsModel.setRowCount(0);
+
+            if (groupName.equals("All")) {
+               
+                for (Bill sendedBill : Client.sendedBills) {
+
+                    tblBillsModel.addRow(new Object[]{sendedBill.sender, sendedBill.amount, sendedBill.description, sendedBill.reciver.name, sendedBill.reciver.members.size(),
+                        0});
+                }
+            } else {
+              
+                for (Bill sendedBill : Client.sendedBills) {
+                    if (sendedBill.reciver.name.equals(groupName)) {
+                        tblBillsModel.addRow(new Object[]{sendedBill.sender, sendedBill.amount, sendedBill.description, sendedBill.reciver.name, sendedBill.reciver.members.size(),
+                            0});
+                    }
+                }
+            }
+        } catch (Exception e) {
+            // when there is no bills do nothing
+        }
+    }
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
         // TODO add your handling code here:
         Message msg = new Message(Message.Message_Type.Selected);
         /*String x = txt_send.getText();
         msg.content = txt_send.getText();*/
         msg.content.add(txtmsg.getText());
-        msg.reciverName=txtReciverName.getText();
+        msg.reciverName = txtReciverName.getText();
 
         Client.Send(msg);
     }//GEN-LAST:event_btnSendActionPerformed
@@ -360,7 +587,7 @@ public class app extends javax.swing.JFrame {
         Message msg = new Message(Message.Message_Type.Name);
         msg.content.add(txtName.getText());
         Client.Send(msg);
-  
+
     }//GEN-LAST:event_btnStartActionPerformed
 
     private void txtmsgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtmsgActionPerformed
@@ -371,51 +598,63 @@ public class app extends javax.swing.JFrame {
 
         //this event triggered if elemnet is selected or if an elemnt is added to combobox list
         // so add the element to the list only if user select element
-         if(cmbAddtoGroup.getSelectedIndex()!=-1&&!addingEvent){
-             addingEvent=false;
-            listModel.addElement((String)cmbAddtoGroup.getSelectedItem());
+        if (cmbAddtoGroup.getSelectedIndex() != -1 && !addingEvent) {
+            addingEvent = false;
+            listModel.addElement((String) cmbAddtoGroup.getSelectedItem());
             cmbAddtoGroup.removeItemAt(cmbAddtoGroup.getSelectedIndex());
         }
-         
-       
+
+
     }//GEN-LAST:event_cmbAddtoGroupActionPerformed
 
     private void cmbAddtoGroupItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbAddtoGroupItemStateChanged
         // TODO add your handling code here:
-       
+
     }//GEN-LAST:event_cmbAddtoGroupItemStateChanged
 
     private void btnMakeGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMakeGroupActionPerformed
-       // at least unique group name and one member must be found
-       boolean existedName=false;
+        // at least unique group name and one member must be found
+        boolean existedName = false;
         for (Group groub : Client.groubs) {
-            if(groub.name.equals(txtGroupName.getText())){
-                existedName=true;
+            if (groub.name.equals(txtGroupName.getText())) {
+                existedName = true;
+                JOptionPane.showMessageDialog(panelHome, "group name is already existed");
                 System.out.println("group name is already existed");
                 break;
             }
         }
-        if( listModel.toArray().length!=0&&!txtGroupName.getText().equals("")&&!existedName){
-            Group newgroup=new Group(txtGroupName.getText());
-        for (Object object : listModel.toArray()) {
-            newgroup.members.add((String)object);
-        }
-        Client.groubs.add(newgroup);
-        // reset fileds
-        txtGroupName.setText("");
-        listModel.removeAllElements();
-        cmbAddtoGroup.removeAllItems();
-        addingEvent = true;
+        if (listModel.toArray().length != 0 && !txtGroupName.getText().equals("") && !existedName) {
+            //in sendGroup sender name must be added as a member name for recivers
+            Group newgroup = new Group(txtGroupName.getText());
+            Group sendGroup = new Group(txtGroupName.getText());
+            for (Object object : listModel.toArray()) {
+                newgroup.members.add((String) object);
+                sendGroup.members.add((String) object);
+            }
+            Client.groubs.add(newgroup);
+
+            // reset fileds
+            txtGroupName.setText("");
+            listModel.removeAllElements();
+            cmbAddtoGroup.removeAllItems();
+            addingEvent = true;
             for (String otherCleint : Client.otherCleints) {
                 cmbAddtoGroup.addItem(otherCleint);
             }
-           addingEvent = false;
-        //update groub combobox
-        cmbGroups.addItem(newgroup.name);
-        
-         
-        }
-        else{
+            addingEvent = false;
+            //update group combobox
+            cmbGroups.addItem(newgroup.name);
+            // add to my groubsCombobox
+            cmbMygroubs.addItem(newgroup.name);
+            cmbMyBillsgroubs.addItem(newgroup.name);
+            cmbRecivedBillsgroubs.addItem(newgroup.name);
+            //send group info to all members
+            // add client name to groube members befor sending grop info to
+
+            sendGroup.members.add(txtName.getText());
+            Client.Send(sendGroup);
+
+        } else {
             System.out.println("hata");
         }
     }//GEN-LAST:event_btnMakeGroupActionPerformed
@@ -431,17 +670,67 @@ public class app extends javax.swing.JFrame {
     private void btnSendBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendBillActionPerformed
         // TODO add your handling code here:
         // if one group is selected and amount and  description is existed
-        if(Client.groubs.size()!=0&&!txtBillDescription.getText().equals("")&&!txtBillAmount.getText().equals("")){
-            
-            Bill newBill=new Bill(txtName.getText(), Double.parseDouble(txtBillAmount.getText()), txtBillDescription.getText()
-            ,Client.groubs.get(cmbGroups.getSelectedIndex()));
+        if (Client.groubs.size() != 0 && !txtBillDescription.getText().equals("") && !txtBillAmount.getText().equals("")) {
+
+            Bill newBill = new Bill(txtName.getText(), Double.parseDouble(txtBillAmount.getText()), 0.0, txtBillDescription.getText(),
+                    Client.groubs.get(cmbGroups.getSelectedIndex()));
             Client.sendedBills.add(newBill);
             System.out.println(newBill);
-            
-            
+            Client.Send(newBill);
+            cmbMyBillsgroubs.setSelectedIndex(0);
+            FillMyBillsTable("All");
+            //{"Paid By", "Total", "Description", "group name","group members", "unpaid"});
+            //tblBillsModel.addRow(new Object[]{newBill.sender, newBill.amount,newBill.description ,newBill.reciver.name,newBill.reciver.members.size()
+            //,0});
+            /// reseting feilds
+            txtBillAmount.setText("");
+            txtBillDescription.setText("");
+
         }
-       
+
     }//GEN-LAST:event_btnSendBillActionPerformed
+
+    private void billsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billsActionPerformed
+        // TODO add your handling code here:
+        System.out.println("my bills");
+        for (Bill sendedBills : Client.sendedBills) {
+            System.out.println(sendedBills);
+        }
+        System.out.println("recived bills");
+        for (Bill recivedBill : Client.recivedBills) {
+            System.out.println(recivedBill);
+        }
+    }//GEN-LAST:event_billsActionPerformed
+
+    private void cmbMygroubsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMygroubsActionPerformed
+        // TODO add your handling code here:
+        if (cmbMygroubs.getSelectedIndex() != -1) {
+            listMygroupsMemberModel.removeAllElements();
+            for (Object object : Client.groubs.get(cmbMygroubs.getSelectedIndex()).members) {
+                listMygroupsMemberModel.addElement(object);
+            }
+        }
+
+
+    }//GEN-LAST:event_cmbMygroubsActionPerformed
+
+    private void cmbGroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbGroupsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbGroupsActionPerformed
+
+    private void cmbMyBillsgroubsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMyBillsgroubsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbMyBillsgroubsActionPerformed
+
+    private void cmbRecivedBillsgroubsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRecivedBillsgroubsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbRecivedBillsgroubsActionPerformed
+
+    private void cmbMyBillsgroubsItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbMyBillsgroubsItemStateChanged
+        // TODO add your handling code here:
+        System.out.println(cmbMyBillsgroubs.getItemAt(cmbMyBillsgroubs.getSelectedIndex()));
+        FillMyBillsTable(cmbMyBillsgroubs.getItemAt(cmbMyBillsgroubs.getSelectedIndex()));
+    }//GEN-LAST:event_cmbMyBillsgroubsItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -479,27 +768,39 @@ public class app extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton bills;
     public javax.swing.JButton btnMakeGroup;
     private javax.swing.JButton btnSend;
     private javax.swing.JButton btnSendBill;
     private javax.swing.JButton btnStart;
     public javax.swing.JComboBox<String> cmbAddtoGroup;
     public javax.swing.JComboBox<String> cmbClients;
-    private javax.swing.JComboBox<String> cmbGroups;
-    public javax.swing.JButton jButton1;
+    public javax.swing.JComboBox<String> cmbGroups;
+    public javax.swing.JComboBox<String> cmbMyBillsgroubs;
+    public javax.swing.JComboBox<String> cmbMygroubs;
+    public javax.swing.JComboBox<String> cmbRecivedBillsgroubs;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
     public javax.swing.JTextArea jTextArea1;
     public javax.swing.JList<String> listGroupMembers;
+    public javax.swing.JList<String> listMygroupsMember;
+    private javax.swing.JPanel panelBill;
+    private javax.swing.JPanel panelGroup;
+    private javax.swing.JPanel panelHome;
+    private javax.swing.JPanel panelMybills;
+    private javax.swing.JPanel panelMybills1;
+    private javax.swing.JTable tblBills;
+    private javax.swing.JTable tblRecivedBills;
     private javax.swing.JTextField txtBillAmount;
     private javax.swing.JTextField txtBillDescription;
     private javax.swing.JTextField txtGroupName;
