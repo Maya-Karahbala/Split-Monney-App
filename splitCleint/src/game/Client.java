@@ -24,87 +24,78 @@ class Listen extends Thread {
 
     public void run() {
         //soket bağlı olduğu sürece dön
-         Object msg;
+        Object msg;
         Message received;
         Bill recivedBill;
         Group recivedGroup;
         while (Client.socket.isConnected()) {
             try {
                 //mesaj gelmesini bloking olarak dinyelen komut
-                msg=(sInput.readObject());
-                if(msg instanceof Bill){
-                        
-                   recivedBill=(Bill)msg;
-                   Client.recivedBills.add(recivedBill);
-                   thisApp.tblRecivedBillsModel.addRow(new Object[]{recivedBill.sender, recivedBill.amount,recivedBill.description ,recivedBill.reciver.name,recivedBill.reciver.members.size()
-                   ,recivedBill.ammountToPaid});
-                    
-                }
-                else if(msg instanceof Group){
-                        
-                   recivedGroup=(Group)msg;
+                msg = (sInput.readObject());
+                if (msg instanceof Bill) {
+
+                    recivedBill = (Bill) msg;
+                    Client.recivedBills.add(recivedBill);
+                    thisApp.tblHomeMsgsModel.addRow(new Object[]{"you recived new bill from "+recivedBill.sender});
+                    thisApp.fillRecivedBilltable("All");
                    
-                   //delete client it self from members and add msg sender to members
-                   recivedGroup.members.remove(thisApp.txtName.getText());
-                   
+                } else if (msg instanceof Group) {
+
+                    recivedGroup = (Group) msg;
+
+                    //delete client it self from members and add msg sender to members
+                    recivedGroup.members.remove(thisApp.txtName.getText());
+
                     Client.groubs.add(recivedGroup);
-                   thisApp.cmbGroups.addItem(recivedGroup.name);
+                    thisApp.cmbGroups.addItem(recivedGroup.name);
                     // add to my groubsCombobox
                     thisApp.cmbMygroubs.addItem(recivedGroup.name);
                     thisApp.cmbMyBillsgroubs.addItem(recivedGroup.name);
                     thisApp.cmbRecivedBillsgroubs.addItem(recivedGroup.name);
-                  // }
-                   
-                   
-                    
-                }
-                else{
-                received = (Message) msg;
-                //mesaj gelirse bu satıra geçer
-                //mesaj tipine göre yapılacak işlemi ayır.
-                switch (received.type) {
-                    //draw
-                    case Draw:
+                     thisApp.tblHomeMsgsModel.addRow(new Object[]{"you have new group called "+recivedGroup.name});
+                    // }
 
-                    case Disconnected:
-
-                        break;
-                    case Bitis:
-
-                        break;
-                    case clientsNames:
-                        thisApp.addingEvent = true;
-                        thisApp.cmbClients.removeAllItems();
-                        thisApp.cmbAddtoGroup.removeAllItems();
-
-                        for (Object object : received.content) {
-                            // add other elemnt names except cleint itself
-                            if (!thisApp.txtName.getText().equals((String) object)) {
-                                if (!Client.otherCleints.contains(object)) {
-                                    Client.otherCleints.add((String) object);
+                } else {
+                    received = (Message) msg;
+                    //mesaj gelirse bu satıra geçer
+                    //mesaj tipine göre yapılacak işlemi ayır.
+                    switch (received.type) {
+                        //draw
+                        case paid:
+                            for (Bill recivedBill1 : Client.recivedBills) {
+                               
+                                if (recivedBill1.id.equals(received.content.get(0))) {
+                                   thisApp.tblHomeMsgsModel.addRow(new Object[]{"your "+recivedBill1.id+" bill marked as paid"});
+                                    recivedBill1.payingStatues.set(0, true);
+                                    //reset recived Bill table
+                                    thisApp.tblRecivedBillsModel.setRowCount(0);
+                                    
+                                   thisApp.fillRecivedBilltable(thisApp.cmbRecivedBillsgroubs.getItemAt(thisApp.cmbRecivedBillsgroubs.getSelectedIndex()));
+                                 
                                 }
-                                thisApp.cmbClients.addItem((String) object);
-                                thisApp.cmbAddtoGroup.addItem((String) object);
+                                
                             }
-                        }
-                      
-                        
-                        thisApp.listModel.removeAllElements();
-                        thisApp.cmbAddtoGroup.setSelectedIndex(-1);
-                        thisApp.addingEvent = false;
-                        break;
+                        case clientsNames:
+                            thisApp.addingEvent = true;
+                            thisApp.cmbAddtoGroup.removeAllItems();
 
-                    case Selected:
-                  
-                        // thisApp.jTextArea1.setText((String) received.content.get(0));
-                        System.out.println(received.content);
+                            for (Object object : received.content) {
+                                // add other elemnt names except cleint itself
+                                if (!thisApp.txtName.getText().equals((String) object)) {
+                                    if (!Client.otherCleints.contains(object)) {
+                                        Client.otherCleints.add((String) object);
+                                    }
+                               
+                                    thisApp.cmbAddtoGroup.addItem((String) object);
+                                }
+                            }
 
-                        break;
-                    case AddGroup:
+                            thisApp.listModel.removeAllElements();
+                            thisApp.cmbAddtoGroup.setSelectedIndex(-1);
+                            thisApp.addingEvent = false;
+                            break;
 
-                        break;
-
-                }
+                    }
                 }
             } catch (IOException ex) {
                 Logger.getLogger(Listen.class.getName()).log(Level.SEVERE, null, ex);
@@ -131,11 +122,13 @@ public class Client {
     public static ArrayList<String> otherCleints;
     public static ArrayList<Bill> sendedBills;
     public static ArrayList<Bill> recivedBills;
+    public static int billId;
 
     public static void Start(String ip, int port) {
         try {
 
             // Client Soket nesnesi
+            billId = 0;
             groubs = new ArrayList<Group>();
             sendedBills = new ArrayList<Bill>();
             recivedBills = new ArrayList<Bill>();
@@ -193,6 +186,5 @@ public class Client {
         }
 
     }
-   
 
 }

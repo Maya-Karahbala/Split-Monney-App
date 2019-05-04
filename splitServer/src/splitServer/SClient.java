@@ -109,7 +109,7 @@ public class SClient {
                     // determining reciver
 
                     //////////////////////////////
-                    System.out.println("msg geldi");
+                    
                     //mesaj gelirse bu satıra geçer
                     //mesaj tipine göre işlemlere ayır
 
@@ -117,7 +117,7 @@ public class SClient {
                         TheClient.name = received.content.get(0).toString();
                         //clienti listeye ekle.
 
-                        System.out.println("--------------");
+                        
                         boolean containsSameName = false;
                         for (SClient Client : Server.Clients) {
                             if (Client.name.equals(TheClient.name)) {
@@ -128,6 +128,7 @@ public class SClient {
                         if (!containsSameName) {
                             Server.Clients.add(TheClient);
                         }
+                        
                            for (SClient Client : Server.Clients) {
                             
                             Server.Display(Client.name + " id = " + Client.id);

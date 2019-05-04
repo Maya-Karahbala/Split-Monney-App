@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class Message implements java.io.Serializable {
     //mesaj tipleri enum 
-    public static enum Message_Type {Disconnected,None, Name, Draw,RivalConnected, clientsNames, Selected, Bitis,Start,AddGroup}
+    public static enum Message_Type {Disconnected,None, Name, paid,RivalConnected, clientsNames, Selected, Bitis,Start,AddGroup}
     //mesajın tipi
     public Message_Type type;
     public String reciverName;
