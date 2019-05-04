@@ -8,7 +8,7 @@
         <p>for testing this app  you have to run the splitServer class in splitServer package first.  then run app class  in splitClient package for each user<br>
         in this app information are saved temporary in arraylists (no database) so you need to 
         be connected to server all time   </p>
-        <ol>
+      
               <h2><li > Summary</li></h2>
 
                 <p>
@@ -73,7 +73,7 @@
 
                 </ul>
 
-    </ol>
+
 
         
 
