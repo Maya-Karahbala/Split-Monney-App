@@ -16,7 +16,7 @@
                         This app allow you to share bills  and make sure that everyone gets paid back.
 
                         Use this app to split household bills with roommates, to figure out costs for a group vacation, or just to remember when a friend spots you for lunch
-                        very similar to  <a href="https://play.google.com/store/apps/details?id=com.Splitwise.SplitwiseMobile&hl=en">Splitwise</a>
+                        very similar to Splitwise
                         app with only basic functions for educational purposes.
 
                 </p>
@@ -26,7 +26,7 @@
                 <ul> 
 
                         <li> Using server and cleint basic classes that used in 
-                            <a href="https://maya-karahbala.github.io/Connect4/"> Connect4 </a> Project
+                            Connect4 Project
                     </li>
                         <li> Adding Group and Bill classes which implement java.io.Serializable the type allowed to sended between server and cleints</li>
                         <li> In the first step cleint must connect to the Serer with uniqe name.</li>
