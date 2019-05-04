@@ -4,7 +4,7 @@
 </head>
 <body>
         <h1> Split Monney App (Client-Server app) </h1>
-        <img align="center" width="400" height="400" src="/Pictures/MyBills.png"><br>
+        
         <p>for testing this app  you have to run the splitServer class in splitServer package first.  then run app class  in splitClient package for each user<br>
         in this app information are saved temporary in arraylists (no database) so you need to 
         be connected to server all time   </p>
@@ -13,7 +13,7 @@
 
                 <p>
 
-                        This app allow you share bills  and make sure that everyone gets paid back.
+                        This app allow you to share bills  and make sure that everyone gets paid back.
 
                         Use this app to split household bills with roommates, to figure out costs for a group vacation, or just to remember when a friend spots you for lunch
                         very similar to  <a href="https://play.google.com/store/apps/details?id=com.Splitwise.SplitwiseMobile&hl=en">Splitwise</a>
@@ -25,42 +25,51 @@
 
                 <ul> 
 
-                        <li> creating (6 * 6) Two-dimensional matrix  from buttons derived from CirculerButton </li
-                        <li>  Adding  colum, isEmpty and color properties to buttons for control  purposes.</li
-                        <li>  When the  player  press start  button he connects to the server and  the server will create a Sclient that will serve only  that player and then server will go back to wait for other players requests.</li
-                        <li> Sclient will start  PairingThread to match the player with another player</li
-                        <li> when two players are matched, the game will start and different colors will be assigned to the
-                                players </li
+                        <li> Using server and cleint basic classes that used in 
+                            <a href="https://maya-karahbala.github.io/Connect4/"> Connect4 </a> Project
+                    </li>
+                        <li> Adding Group and Bill classes which implement java.io.Serializable the type allowed to sended between server and cleints</li>
+                        <li> In the first step cleint must connect to the Serer with uniqe name.</li>
+                        <li> all recent notification will adde to home page</li><br>
+                        <img align="center" width="400" height="400" src="/Pictures/Avtivitys.png"><br><br>
+                        <li> when new cleint connect to server, server will create 
+                    scleint (sub server) for this cleint and send message with cleint name to scleint</li>
+                        <li> scleint will add that cleint to Clients Array list </li>
                                 <li>
-                                There are two basic and continuous functions in the game</li>
-                                <ol
-                                <li> controling player  own moves(controled by Circular buttons ActionListener)
-
-                              </li>
-
-                                <li> Controling rival  moves (controled by control thred)</li>
-
-                                </ol>
+                                Cleint allowd to create group with other connected cleints </li>
+                                <li> group info will added to cleint who create the group and other cleints involved in that group</li>
+                    <br>
+                        <img align="center" width="400" height="400" src="/Pictures/addGroup.png"><br><br>
+                               
 
                         <li> 
-
-                                transactions when player make a move (dropping one colored disc): </li>
-
-                                <ol>
-
-                                <li> Fill method invoked  with the selected colum number and the first blank hole in that  colum will bw filled with the player color
-
+                                 Cleint allowd to add bills with ammount, description and selected 
+                            group
                                 </li>
 
-                                <li>  horizantal, vertical and digonal  control methods will be called</li>
+                                <br>
+                        <img align="center" width="400" height="400" src="/Pictures/AddBill.png"><br><br>
 
-                                <li> transiction information will sent to the rival as a message.</li>
+                                <li> bill will added to cleints myBills ArrayList and send messages to sclent with group info
 
-                                </ol>
+                                </li>
+                                 <li> cleint can mark a bill as paid and message will be sended also to the other cleint and marked as apaid</li>  
+                    <br>
+                        <img align="center" width="400" height="400" src="/Pictures/MyBills.png"><br><br>
 
-                        <li> when player send message to rival the message will go firstly to the sclient then to the rival</li>
+                                <li>  scleint will resend bills to cleints included in that group</li>
 
-                        <li> game terminates if one player win or if all holes filled and players draw</li>     
+                                <li>cleints recive bill and added to recivedBill
+                                    ArrayList and make update to affected tabels</li>
+                          
+                              <br>
+                        <img align="center" width="400" height="400" src="/Pictures/recivedBills.png"><br><br> 
+
+                        <li> cleint can search  his groups, bills and recived bills</li>
+
+                       
+                        
+                    
 
                 </ul>
 
