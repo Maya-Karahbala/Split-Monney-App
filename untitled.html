@@ -3,15 +3,21 @@
 <head>
 </head>
 <body>
-        <h1> Connect4 (Client-Server Game) </h1>
-        <img align="center" width="400" height="400" src="screenshoot.png"><br>
-        <p>for testing this game you have to run the server class in Connect4Server package first.  then run game class  in Connect4Client package for each player  </p>
+        <h1> Split Monney App (Client-Server app) </h1>
+        <img align="center" width="400" height="400" src="/Pictures/MyBills.png"><br>
+        <p>for testing this app  you have to run the splitServer class in splitServer package first.  then run app class  in splitClient package for each user<br>
+        in this app information are saved temporary in arraylists (no database) so you need to 
+        be connected to server all time   </p>
         <ol>
               <h2><li > Summary</li></h2>
 
                 <p>
 
-                        Connect Four  is a two-player connection game in which  players have tow differnt color and then take turns dropping one colored disc from the top into a six-column, six-row(Dynamic) vertically suspended grid. The pieces fall straight down, occupying the lowest available space within the column. The objective of the game is to be the first to form a horizontal, vertical, or diagonal line of four of one's own discs.
+                        This app allow you share bills  and make sure that everyone gets paid back.
+
+                        Use this app to split household bills with roommates, to figure out costs for a group vacation, or just to remember when a friend spots you for lunch
+                        very similar to  <a href="https://play.google.com/store/apps/details?id=com.Splitwise.SplitwiseMobile&hl=en">Splitwise</a>
+                        app with only basic functions for educational purposes.
 
                 </p>
 
