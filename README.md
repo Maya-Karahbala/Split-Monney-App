@@ -1,11 +1,13 @@
 
+
 <html>
 <head>
 </head>
 <body>
         <h1> Split Monney App (Client-Server app) </h1>
         
-        <p>for testing this app  you have to run the splitServer class in splitServer package first.  then run app class  in splitClient package for each user<br>
+        <p>for testing this app  you have to run the splitServer class in splitServer package first.  then run app class  in
+        splitClient package for each user<br>
         in this app information are saved temporary in arraylists (no database) so you need to 
         be connected to server all time   </p>
         <ol>
@@ -15,8 +17,10 @@
 
                         This app allow you to share bills  and make sure that everyone gets paid back.
 
-                        Use this app to split household bills with roommates, to figure out costs for a group vacation, or just to remember when a friend spots you for lunch
-                        very similar to  <a href="https://play.google.com/store/apps/details?id=com.Splitwise.SplitwiseMobile&hl=en">Splitwise</a>
+                        Use this app to split household bills with roommates, to figure out costs for a group vacation, or
+                        just to remember when a friend spots you for lunch
+                        very similar to  
+                   <a href="https://play.google.com/store/apps/details?id=com.Splitwise.SplitwiseMobile&hl=en">Splitwise</a>
                         app with only basic functions for educational purposes.
 
                 </p>
@@ -37,7 +41,8 @@
                         <li> scleint will add that cleint to Clients Array list </li>
                                 <li>
                                 Cleint allowd to create group with other connected cleints </li>
-                                <li> group info will added to cleint who create the group and other cleints involved in that group</li>
+                                <li> group info will added to cleint who create the group and other cleints involved in
+                                that group</li>
                     <br>
                         <img align="center" width="400" height="400" src="/Pictures/addGroup.png"><br><br>
                                
@@ -53,7 +58,8 @@
                                 <li> bill will added to cleints myBills ArrayList and send messages to sclent with group info
 
                                 </li>
-                                 <li> cleint can mark a bill as paid and message will be sended also to the other cleint and marked as apaid</li>  
+                                 <li> cleint can mark a bill as paid and message will be sended also to the other cleint and 
+                                 marked as apaid</li>  
                     <br>
                         <img align="center" width="400" height="400" src="/Pictures/MyBills.png"><br><br>
 
@@ -82,3 +88,6 @@
         
 
 </html>
+
+
+                  
