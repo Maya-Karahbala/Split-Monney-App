@@ -38,7 +38,7 @@ Use this app to split household bills with roommates, to figure out costs for a 
                                 Cleint allowd to create group with other connected cleints </li>
                                 <li> group info will added to cleint who create the group and other cleints involved in that group</li>
                     <br>
-                        <img align="center" width="400" height="400" src="/Pictures/addGroup.png"><br><br>
+                        <img align="center" width="500" height="400" src="/Pictures/addGroup.png"><br><br>
                                
 
  <li> 
@@ -47,13 +47,13 @@ Use this app to split household bills with roommates, to figure out costs for a 
                                 </li>
 
 <br>
-                        <img align="center" width="400" height="400" src="/Pictures/AddBill.png"><br><br>
+                        <img align="center" width="500" height="400" src="/Pictures/AddBill.png"><br><br>
  <li> bill will added to cleints myBills ArrayList and send messages to sclent with group info
 
   </li>
                                  <li> cleint can mark a bill as paid and message will be sended also to the other cleint and marked as apaid</li>  
                     <br>
-                        <img align="center" width="400" height="400" src="/Pictures/MyBills.png"><br><br>
+                        <img align="center" width="500" height="400" src="/Pictures/MyBills.png"><br><br>
 
  <li>  scleint will resend bills to cleints included in that group</li>
 
@@ -61,7 +61,7 @@ Use this app to split household bills with roommates, to figure out costs for a 
                                     ArrayList and make update to affected tabels</li>
                           
  <br>
-                        <img align="center" width="400" height="400" src="/Pictures/recivedBills.png"><br><br> 
+                        <img align="center" width="500" height="400" src="/Pictures/recivedBills.png"><br><br> 
 
  <li> cleint can search  his groups, bills and recived bills</li>
 
