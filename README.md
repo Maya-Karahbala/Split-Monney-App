@@ -20,11 +20,11 @@ Use this app to split household bills with roommates, to figure out costs for a 
 
  </p>
 
-                <h2><li > Project steps </li></h2>
+<h2><li > Project steps </li></h2>
 
-                <ul> 
+<ul> 
 
-                        <li> Using server and cleint basic classes that used in 
+ <li> Using server and cleint basic classes that used in 
                             <a href="https://maya-karahbala.github.io/Connect4/"> Connect4 </a> Project
                     </li>
                         <li> Adding Group and Bill classes which implement java.io.Serializable the type allowed to sended between server and cleints</li>
@@ -41,38 +41,37 @@ Use this app to split household bills with roommates, to figure out costs for a 
                         <img align="center" width="400" height="400" src="/Pictures/addGroup.png"><br><br>
                                
 
-                        <li> 
+ <li> 
                                  Cleint allowd to add bills with ammount, description and selected 
                             group
                                 </li>
 
-                                <br>
+<br>
                         <img align="center" width="400" height="400" src="/Pictures/AddBill.png"><br><br>
+ <li> bill will added to cleints myBills ArrayList and send messages to sclent with group info
 
-                                <li> bill will added to cleints myBills ArrayList and send messages to sclent with group info
-
-                                </li>
+  </li>
                                  <li> cleint can mark a bill as paid and message will be sended also to the other cleint and marked as apaid</li>  
                     <br>
                         <img align="center" width="400" height="400" src="/Pictures/MyBills.png"><br><br>
 
-                                <li>  scleint will resend bills to cleints included in that group</li>
+ <li>  scleint will resend bills to cleints included in that group</li>
 
-                                <li>cleints recive bill and added to recivedBill
+ <li>cleints recive bill and added to recivedBill
                                     ArrayList and make update to affected tabels</li>
                           
-                              <br>
+ <br>
                         <img align="center" width="400" height="400" src="/Pictures/recivedBills.png"><br><br> 
 
-                        <li> cleint can search  his groups, bills and recived bills</li>
+ <li> cleint can search  his groups, bills and recived bills</li>
 
                        
                         
                     
 
-                </ul>
+ </ul>
 
-    </ol>
+</ol>
 
         
 
