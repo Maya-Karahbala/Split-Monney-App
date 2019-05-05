@@ -30,7 +30,7 @@ Use this app to split household bills with roommates, to figure out costs for a 
                         <li> Adding Group and Bill classes which implement java.io.Serializable the type allowed to sended between server and cleints</li>
                         <li> In the first step cleint must connect to the Serer with uniqe name.</li>
                         <li> all recent notification will adde to home page</li><br>
-                        <img align="center" width="400" height="400" src="/Pictures/Avtivitys.png"><br><br>
+                        <img align="center" width="500" height="400" src="/Pictures/Avtivitys.png"><br><br>
                         <li> when new cleint connect to server, server will create 
                     scleint (sub server) for this cleint and send message with cleint name to scleint</li>
                         <li> scleint will add that cleint to Clients Array list </li>
