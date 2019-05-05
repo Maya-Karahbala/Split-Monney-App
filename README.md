@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html>
 <head>
 </head>
@@ -66,6 +66,11 @@
                         <img align="center" width="400" height="400" src="/Pictures/recivedBills.png"><br><br> 
 
                         <li> cleint can search  his groups, bills and recived bills</li>
+    </ol>
+
+        
+
+</body>
 
                        
                         
@@ -73,13 +78,7 @@
 
                 </ul>
 
-    </ol>
-
-        
-
-</body>
 
         
 
 </html>
-
