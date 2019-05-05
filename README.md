@@ -5,21 +5,20 @@
 <body>
         <h1> Split Monney App (Client-Server app) </h1>
         
-        <p>for testing this app  you have to run the splitServer class in splitServer package first.  then run app class  in splitClient package for each user<br>
+<p>for testing this app  you have to run the splitServer class in splitServer package first.  then run app class  in splitClient package for each user<br>
         in this app information are saved temporary in arraylists (no database) so you need to 
         be connected to server all time   </p>
         <ol>
               <h2><li > Summary</li></h2>
 
-                <p>
+ <p>
+This app allow you to share bills  and make sure that everyone gets paid back.
 
-                        This app allow you to share bills  and make sure that everyone gets paid back.
-
-                        Use this app to split household bills with roommates, to figure out costs for a group vacation, or just to remember when a friend spots you for lunch
+Use this app to split household bills with roommates, to figure out costs for a group vacation, or just to remember when a friend spots you for lunch
                         very similar to  <a href="https://play.google.com/store/apps/details?id=com.Splitwise.SplitwiseMobile&hl=en">Splitwise</a>
                         app with only basic functions for educational purposes.
 
-                </p>
+ </p>
 
                 <h2><li > Project steps </li></h2>
 
