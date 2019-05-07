@@ -24,46 +24,46 @@ Use this app to split household bills with roommates, to figure out costs for a 
 
 <ul> 
 
- <li> Using server and cleint basic classes that used in 
+ <li> Using server and client basic classes that used in 
                             <a href="https://maya-karahbala.github.io/Connect4/"> Connect4 </a> Project
                     </li>
-                        <li> Adding Group and Bill classes which implement java.io.Serializable the type allowed to sended between server and cleints</li>
-                        <li> In the first step cleint must connect to the Serer with uniqe name.</li>
+                        <li> Adding Group and Bill classes which implement java.io.Serializable the type allowed to sent between server and clients</li>
+                        <li> In the first step client must connect to the Serer with uniqe name.</li>
                         <li> all recent notification will adde to home page</li><br>
                         <img align="center" width="500" height="400" src="/Pictures/Avtivitys.png"><br><br>
-                        <li> when new cleint connect to server, server will create 
-                    scleint (sub server) for this cleint and send message with cleint name to scleint</li>
-                        <li> scleint will add that cleint to Clients Array list </li>
+                        <li> when new client connect to server, server will create 
+                    sclient (sub server) for this client and send message with client name to sclient</li>
+                        <li> sclient will add that client to Clients Array list </li>
                                 <li>
-                                Cleint allowd to create group with other connected cleints </li>
-                                <li> group info will added to cleint who create the group and other cleints involved in that group</li>
+                                Client allowed to create group with other connected clients </li>
+                                <li> group info will added to client who create the group and other clients involved in that group</li>
                     <br>
                         <img align="center" width="500" height="400" src="/Pictures/addGroup.png"><br><br>
                                
 
  <li> 
-                                 Cleint allowd to add bills with ammount, description and selected 
+                                 Client allowd to add bills with ammount, description and selected 
                             group
                                 </li>
 
 <br>
                         <img align="center" width="500" height="400" src="/Pictures/AddBill.png"><br><br>
- <li> bill will added to cleints myBills ArrayList and send messages to sclent with group info
+ <li> bill will added to clients myBills ArrayList and send messages to sclent with group info
 
   </li>
-                                 <li> cleint can mark a bill as paid and message will be sended also to the other cleint and marked as apaid</li>  
+                                 <li> client can mark a bill as paid and message will be sent also to the other client and marked as apaid</li>  
                     <br>
                         <img align="center" width="500" height="400" src="/Pictures/MyBills.png"><br><br>
 
- <li>  scleint will resend bills to cleints included in that group</li>
+ <li>  sclient will resend bills to clients included in that group</li>
 
- <li>cleints recive bill and added to recivedBill
+ <li>clients recive bill and added to recivedBill
                                     ArrayList and make update to affected tabels</li>
                           
  <br>
                         <img align="center" width="500" height="400" src="/Pictures/recivedBills.png"><br><br> 
 
- <li> cleint can search  his groups, bills and recived bills</li>
+ <li> client can search  his groups, bills and recived bills</li>
 
                        
                         
