@@ -115,10 +115,12 @@ public class app extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         tblRecivedBills = new javax.swing.JTable();
         cmbRecivedBillsgroubs = new javax.swing.JComboBox<>();
+        lblUserName = new javax.swing.JLabel();
+        lblUserName1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTabbedPane1.setFont(new java.awt.Font("Noto Sans", 1, 24)); // NOI18N
+        jTabbedPane1.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
 
         panelHome.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
 
@@ -260,7 +262,7 @@ public class app extends javax.swing.JFrame {
                 .addGroup(panelGroupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnMakeGroup, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(249, Short.MAX_VALUE))
+                .addContainerGap(203, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Add  group", panelGroup);
@@ -344,7 +346,7 @@ public class app extends javax.swing.JFrame {
                     .addComponent(txtBillAmount))
                 .addGap(75, 75, 75)
                 .addComponent(btnSendBill)
-                .addContainerGap(367, Short.MAX_VALUE))
+                .addContainerGap(321, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Add bill", panelBill);
@@ -385,7 +387,7 @@ public class app extends javax.swing.JFrame {
                 .addComponent(cmbMygroubs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(219, Short.MAX_VALUE))
+                .addContainerGap(173, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("My Groups", jPanel1);
@@ -469,7 +471,7 @@ public class app extends javax.swing.JFrame {
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(61, 61, 61)
                 .addComponent(btmMarkAsPaid)
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("My Bills", panelMybills);
@@ -524,21 +526,39 @@ public class app extends javax.swing.JFrame {
                 .addComponent(cmbRecivedBillsgroubs, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(195, Short.MAX_VALUE))
+                .addContainerGap(149, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Recived Bills", panelMybills1);
+
+        lblUserName.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
+
+        lblUserName1.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
+        lblUserName1.setText("User name");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jTabbedPane1)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblUserName1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblUserName1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 698, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -577,6 +597,7 @@ public class app extends javax.swing.JFrame {
         btnStart.setEnabled(false);
         txtName.setEnabled(false);
         Client.Start("127.0.0.1", 2000);
+        lblUserName.setText(txtName.getText());
         //
         tblHomeMsgsModel.addRow(new Object[]{txtName.getText()+"  you are connected"});
         //send msg to server with cleint name
@@ -868,6 +889,8 @@ public class app extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel lblUserName;
+    private javax.swing.JLabel lblUserName1;
     public javax.swing.JList<String> listGroupMembers;
     public javax.swing.JList<String> listMygroupsMember;
     private javax.swing.JPanel panelBill;

@@ -75,6 +75,7 @@ class Listen extends Thread {
                                 }
                                 
                             }
+                            break;
                         case clientsNames:
                             thisApp.addingEvent = true;
                             thisApp.cmbAddtoGroup.removeAllItems();
