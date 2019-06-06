@@ -28,7 +28,7 @@ Use this app to split household bills with roommates, to figure out costs for a 
                             <a href="https://maya-karahbala.github.io/Connect4/"> Connect4 </a> Project
                     </li>
                         <li> Adding Group and Bill classes which implement java.io.Serializable the type allowed to sent between server and clients</li>
-                        <li> In the first step client must connect to the Serer with uniqe name.</li>
+                        <li> In the first step client must connect to the Server with uniqe name.</li>
                         <li> all recent notification will adde to home page</li><br>
                         <img align="center" width="500" height="400" src="/Pictures/Avtivitys.png"><br><br>
                         <li> when new client connect to server, server will create 
